@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root{
+    --var1: #f5f5f6;
+    --var2: #c665f0;
+    --var3: #4a0368;
+    --var4: #814798;
+    --var5: #b0afaf;
+}
+
+[data-theme="dark"]{
+    --var1: #4a0368;
+    --var2: #c6c1c7;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+body{
+    background-color: var(--var1);
+    color: var(--var2);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.5rem;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+#navbar{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+    border-radius: 1rem;
+    align-items: center;
+}
+
+nav ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 2rem 1rem;
+}
+
+li.list-item{
+    cursor: pointer;
+
+    svg{
+        fill: var(--var2);
+    }
+}
+
+li.list-item button{
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--var2);
+}
+
+li.list-item:hover, li.list-item button:hover{
+    color: var(--var4);
+}
+   
+li.list-item svg:hover{
+    fill: var(--var4);
+}
+main{
+    margin-top: 4em;
+    padding: 2rem;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-auto-rows: auto;
+    border: solid 1px var(--var3);
+    border-radius: 1em;
+
+}
+    
+svg path{
+    stroke: var(--var3);
+    stroke-width: 1;
+    cursor: pointer;
+    transition: fill 240ms ease, transform 150ms ease;
+    will-change: fill;
+}
+
+svg path:hover {
+    fill: var(--var5) !important;
+}
+
+svg path.answered,
+svg path.correct-answer,
+svg path.wrong-answer {
+    pointer-events: none;
+    cursor: default;
+}
+
+svg path.correct-answer {
+    fill: var(--var2) !important;
+    transition: fill 1s ease-in-out;
+}
+
+svg path.wrong-answer {
+    fill: #b12d2d !important;
+    transition: fill 1s ease-in-out;
+}
+
+/* Timer */
+#current-time {
+    font-family: monospace;
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+#laps-time {
+    position: absolute;
+    background: var(--var1);
+    border: 1px solid var(--var3);
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+}
+
+#timer:hover #laps-time {
+    display: block;
+}
+
+.lap-item {
+    padding: 5px 10px;
+    margin: 3px 0;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.lap-item.correct {
+    background: rgba(76, 175, 80, 0.1);
+    border-left: 3px solid var(--var2);
+}
+
+.lap-item.wrong {
+    background: rgba(183, 28, 28, 0.1);
+    border-left: 3px solid #b12d2d;
+}
+
+
+#pause {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#pause:hover {
+    transform: scale(1.1);
+}
+
+#pause:active {
+    transform: scale(0.95);
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.timer-paused {
+    color: var(--var4) !important;
+    animation: none !important;
+}
+
+#pause-message {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    white-space: pre-line;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.paused-map svg path {
+    pointer-events: none !important;
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}
+
+/* Optional: Add a dim overlay when paused */
+#pause-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    display: none;
+}
