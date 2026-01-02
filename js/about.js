@@ -1,0 +1,1 @@
+let aboutContent = document.getElementById('about-content');

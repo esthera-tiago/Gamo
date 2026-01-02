@@ -1,0 +1,1 @@
+let settingsContent = document.getElementById('settings-content');
