@@ -155,199 +155,101 @@ nav{
     animation: flowingStroke 4s cubic-bezier(0.65, 0, 0.35, 1) forwards, liquidFill 3s ease-in-out 3s forwards;
 }
 
-.theme-toggle svg{
-    fill: var(--text-primary);
-    transition: fill 0.3s;
-}
-
-.theme-toggle:hover {
-    background: var(--accent-purple);
-    border-color: var(--accent-purple);
-    transform: scale(1.05);
-}
-
-#sidebar ul li.active{
-    color: var(--var4);
-    svg{
-        fill: var(--var4);
+@keyframes flowingStroke {
+    0% {
+        stroke-dashoffset: 1000;
+        filter: drop-shadow(0 0 0px var(--accent-purple));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px var(--accent-purple));
+    }
+    100% {
+        stroke-dashoffset: 0;
+        filter: drop-shadow(0 0 10px var(--accent-purple));
     }
 }
 
-#sidebar a, #sidebar .dropdown, #sidebar .logo{
-    border-radius: .5em;
-    padding: .85em;
-    text-decoration: none;
-    color: var(--var2);
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 1em;
+@keyframes liquidFill {
+    0% {
+        fill: transparent;
+        stroke-width: 3;
+        stroke: var(--accent-purple);
+    }
+    50% {
+        fill: transparent;
+        stroke-width: 2;
+    }
+    100% {
+        fill: url(#gradient);
+        stroke-width: 0.5;
+        stroke: var(--accent-purple-light);
+    }
 }
 
-.dropdown{
-    background: none;
-    width: 100%;
+.subtitle {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 5s forwards;
+    background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-purple-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 5.5s forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cta-button {
+    position: relative;
+    padding: 1.2rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-purple-light) 100%);
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px var(--shadow-color);
+    transition: all 0.4s;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 6s forwards;
     border: none;
     cursor: pointer;
-    font: inherit;
-    text-align: left;
 }
 
-#sidebar svg{
-    flex-shrink: 0;
-    fill: var(--var2);
-}
-
-#sidebar a span, #sidebar .dropdown span{
-    flex-grow: 1;
-}
-
-#sidebar a:hover, #sidebar .dropdown:hover{
-    background-color: var(--var5);
-}
-
-#sidebar .sub-menu{
-   display: grid;
-   grid-template-rows: 0fr;
-   transition: 300ms ease-in-out;
-   overflow: hidden;
-
-   > div{
-    overflow: hidden;
-   }
-}
-
-#sidebar .sub-menu.open{
-    grid-template-rows: 1fr;
-}
-
-#sidebar .sub-item{
-    border-radius: .5em;
-    padding: .85em;
-    text-decoration: none;
-    gap: 1em;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    cursor: pointer;
-}
-
-#sidebar .sub-item:hover{
-    background-color: var(--var5);
-}
-
-.dropdown svg{
-    transition: rotate 300ms ease-in-out;
-}
-.rotate svg:last-child{
-    rotate: 180deg;
-}
-
-@media (max-width: 800px){
-    body{
-        grid-template-columns: 1fr;
-    }
-    main{
-        padding: 2em 1em 60px 1em;
-        border: none;
-        border-radius: 0;
-        margin: 0;
-    }
-
-    #sidebar{
-        height: 60px;
-        width: 100%;
-        border-right: none;
-        border-top: solid 1px var(--var3);
-        padding: 0;
-        position: fixed;
-        top: unset;
-        bottom: 0;
-
-        > ul{
-            padding: 0;
-            display: grid;
-            grid-auto-columns: 60px;
-            grid-auto-flow: column;
-            align-items: center;
-            overflow-x: scroll;
-        }
-
-        ul li{
-            height: 100%;
-        }
-
-        ul a, ul .dropdown{
-            width: 60px;
-            height: 60px;
-            border-radius: 0;
-            padding: 0;
-            justify-content: center;
-        }
-
-        ul li .sub-menu.open{
-            position: fixed;
-            bottom: 60px;
-            left: 0;
-            box-sizing: border-box;
-            height: 60px;
-            width: 100%;
-            background-color: var(--var5);
-            color: var(--var2);
-            border-bottom: solid 1px var(--var3);
-            display: flex;
-            justify-content: center;
-
-            li{
-                display: inline-flex;
-            }
-        }
-
-        ul li span, ul li:first-child, .dropdown svg:last-child{
-            display: none;
-        }
-    }
-}
-
-main{
-    margin-top: 5rem;
-    margin-bottom: 6rem;
-    padding: 2rem;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    grid-auto-rows: auto;
-}
-
-p{
-    margin-top: 3rem;
-    margin-bottom: 3rem;
-    font-size: 5rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    -webkit-text-stroke: 2px var(--var2);
-    color: transparent;
-    position: relative;
-    display: inline-block;
-    z-index: 1;
-    --fill-delay: 3000ms;
-}
-
-p::after{
-    content: attr(data-text);
+.cta-button::before {
+    content: '';
     position: absolute;
-    inset: 0;
-    color: transparent;
-    background: linear-gradient(90deg, var(--var2) 0%, var(--var2) 100%);
-    background-size: 200% 100%;
-    background-position: -100% center;
-    -webkit-background-clip: text;
-    background-clip: text;
-    transition: background-position 1.8s ease;
-    transition-delay: var(--fill-delay);
-    pointer-events: none;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
 }
 
-p.filled::after{
-    background-position: 0% center;
+.cta-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 50px var(--shadow-color);
+}
+
+.cta-button:hover::before {
+    left: 100%;
 }
