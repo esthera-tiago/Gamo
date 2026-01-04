@@ -15,7 +15,7 @@
     --shadow-color: rgba(139, 92, 246, 0.4);
 }
 
-[data-theme="dark"]{
+body.light-theme{
     --bg-primary: #f5f3ff;
     --bg-secondary: #ede9fe;
     --bg-tertiary: #ddd6fe;
@@ -117,6 +117,17 @@ nav{
     cursor: pointer;
     transition: all 0.3s;
     font-size: 1.2rem;
+}
+
+.theme-toggle:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+      transform: scale(1.05);
+}
+
+.theme-toggle svg {
+    fill: var(--text-primary);
+    transition: fill 0.3s;
 }
 
 .home {
