@@ -175,15 +175,13 @@ function updateGameStateOnPause(){
     const svgPaths = document.querySelectorAll('svg path')
     if(isTimerPaused){
         svgPaths.forEach(path => {
-            path.style.pointerEvents = "none"
-            path.style.cursor = "default"
+            path.classList.add('paused')
             path.style.opacity = "0.7"
         })
         showPauseMessage()
     }else{
         svgPaths.forEach(path =>{
-            path.style.pointerEvents = "auto"
-            path.style.cursor = "pointer"
+            path.classList.remove('paused')
             path.style.opacity = "1"
         })
         hidePauseMessage()
@@ -281,10 +279,9 @@ function showFinalStats(){
 function startGame() {
     stopTimer()
     document.querySelectorAll('svg path').forEach(path => {
-        path.classList.remove('correct-answer', 'wrong-answer', 'answered')
+        path.classList.remove('correct-answer', 'wrong-answer', 'answered', 'paused')
+        path.classList.add('interactive')
         path.style.fill = ""
-        path.style.pointerEvents = "auto"
-        path.style.cursor = "pointer"
     });
 
     shuffle = shuffleArray(countries)

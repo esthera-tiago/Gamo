@@ -13,6 +13,9 @@
     --glass-bg: rgba(139, 92, 246, 0.1);
     --glass-border: rgba(139, 92, 246, 0.3);
     --shadow-color: rgba(139, 92, 246, 0.4);
+    --gradient-stop-0: #8b5cf6;
+    --gradient-stop-50: #a78bfa;
+    --gradient-stop-100: #c4b5fd;
 }
 
 body.light-theme{
@@ -28,6 +31,9 @@ body.light-theme{
     --glass-bg: rgba(139, 92, 246, 0.15);
     --glass-border: rgba(139, 92, 246, 0.4);
     --shadow-color: rgba(139, 92, 246, 0.3);
+    --gradient-stop-0: #d8b4fe;
+    --gradient-stop-50: #e9d5ff;
+    --gradient-stop-100: #f3e8ff;
 }
 
 *{

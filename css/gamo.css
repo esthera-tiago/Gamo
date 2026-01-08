@@ -7,12 +7,15 @@
     --accent-purple: #8b5cf6;
     --accent-purple-light: #a78bfa;
     --accent-purple-dark: #6d28d9;
-    --accent-pink: #ec4899;
+    --accent-pink: #a5061e;
     --text-primary: #ffffff;
     --text-secondary: rgba(255, 255, 255, 0.7);
     --glass-bg: rgba(139, 92, 246, 0.1);
     --glass-border: rgba(139, 92, 246, 0.3);
     --shadow-color: rgba(139, 92, 246, 0.4);
+    --gradient-stop-0: #8b5cf6;
+    --gradient-stop-50: #a78bfa;
+    --gradient-stop-100: #c4b5fd;
 }
 
 body.light-theme{
@@ -22,12 +25,15 @@ body.light-theme{
     --accent-purple: #8b5cf6;
     --accent-purple-light: #a78bfa;
     --accent-purple-dark: #6d28d9;
-    --accent-pink: #ec4899;
+    --accent-pink: #d33c52;
     --text-primary: #1e1b4b;
     --text-secondary: rgba(30, 27, 75, 0.7);
     --glass-bg: rgba(139, 92, 246, 0.15);
     --glass-border: rgba(139, 92, 246, 0.4);
     --shadow-color: rgba(139, 92, 246, 0.3);
+    --gradient-stop-0: #d8b4fe;
+    --gradient-stop-50: #e9d5ff;
+    --gradient-stop-100: #f3e8ff;
 }
 
 *{
@@ -163,6 +169,10 @@ nav{
     background-clip: text;
 }
 
+.stat-label svg, .stat-value svg{
+    fill: var(--accent-purple);
+}
+
 main{
     margin-top: 4em;
     padding: 2rem;
@@ -226,15 +236,24 @@ main{
 }
     
 svg path{
-    stroke: var(--accent-purple);
+    stroke: var(--accent-purple-dark);
     stroke-width: 1;
-    cursor: pointer;
-    transition: fill 240ms ease, transform 150ms ease;
+    transition: fill 240ms ease, transform 150ms ease, cursor 0ms;
     will-change: fill;
 }
 
-svg path:hover {
+svg path.interactive {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+svg path.interactive:hover {
     fill: var(--accent-purple-light) !important;
+}
+
+svg path.paused {
+    cursor: default !important;
+    pointer-events: none !important;
 }
 
 svg path.answered,
