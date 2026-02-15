@@ -282,6 +282,8 @@ function startGame() {
         path.classList.remove('correct-answer', 'wrong-answer', 'answered', 'paused')
         path.classList.add('interactive')
         path.style.fill = ""
+        path.style.pointerEvents = ''
+        path.style.cursor = ''
     });
 
     shuffle = shuffleArray(countries)
@@ -303,6 +305,10 @@ function startGame() {
 }
 
 function onCountryClick(event) {
+    if (isTimerPaused) {
+        console.log('Game is paused, click ignored')
+        return
+    }
     const clickedEl = event.target.closest('path') || event.target
     const clickedId = clickedEl.id
     if(!clickedId || !target) return
@@ -313,30 +319,41 @@ function onCountryClick(event) {
     if(clickedEl.classList.contains('answered')) return
     if(targetEl.classList.contains('answered')) return
 
+    if (targetEl.classList.contains('answered') || 
+        targetEl.classList.contains('correct-answer') || 
+        targetEl.classList.contains('wrong-answer')) {
+        console.log('This country was already answered')
+        return
+    }
+
+    if (!clickedEl.classList.contains('interactive')) {
+        console.log('Clicked element is not interactive')
+        return
+    }
+
     let isCorrect = false
     if (clickedId === target) {
         score++
         isCorrect = true
         if (scoreF) scoreF.innerText = score
+        targetEl.classList.remove('interactive')
         targetEl.classList.add('correct-answer', 'answered')
-        targetEl.style.fill = ""
-        targetEl.style.pointerEvents = 'none'
-        targetEl.style.cursor = 'default'
     } else {
+         targetEl.classList.remove('interactive')
         targetEl.classList.add('wrong-answer', 'answered')
-        targetEl.style.fill = ""
-        targetEl.style.pointerEvents = 'none'
-        targetEl.style.cursor = 'default'
     }
 
     recordLapsTime(isCorrect)
     currentIndex++
-    setTimeout(nextTarget, 1000)
+    setTimeout(() => {
+        nextTarget()
+    }, 800)
 }
 
 function setUpMap() {
     document.querySelectorAll('svg path').forEach(path => {
-    path.addEventListener('click', onCountryClick)
+        path.classList.add('interactive')
+        path.addEventListener('click', onCountryClick)
     })
 }
 

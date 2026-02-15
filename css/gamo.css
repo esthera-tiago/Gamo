@@ -8,6 +8,7 @@
     --accent-purple-light: #a78bfa;
     --accent-purple-dark: #6d28d9;
     --accent-pink: #a5061e;
+    --accent-pink-secondary: #d33c52;
     --text-primary: #ffffff;
     --text-secondary: rgba(255, 255, 255, 0.7);
     --glass-bg: rgba(139, 92, 246, 0.1);
@@ -26,6 +27,7 @@ body.light-theme{
     --accent-purple-light: #a78bfa;
     --accent-purple-dark: #6d28d9;
     --accent-pink: #d33c52;
+    --accent-pink-secondary: #a5061e;
     --text-primary: #1e1b4b;
     --text-secondary: rgba(30, 27, 75, 0.7);
     --glass-bg: rgba(139, 92, 246, 0.15);
@@ -293,41 +295,53 @@ main{
     width: 100%;
     height: auto;
     max-width: 800px;
+    pointer-events: bounding-box;
 }
     
 svg path{
     stroke: var(--accent-purple-dark);
-    stroke-width: 1;
-    transition: all 0.3s ease;
+    stroke-width: 1.5;
+    fill: rgba(139, 92, 246, 0.25);
+    transition: all 0.15s ease;
     cursor: default;
     pointer-events: none;
+    shape-rendering: geometricPrecision;
 }
 
 svg path.interactive {
     cursor: pointer !important;
-    pointer-events: auto !important;
+    pointer-events: all !important;
+    stroke-width: 1;
+    stroke: transparent;
+    paint-order: stroke fill;
+    stroke: var(--accent-purple);
 }
 
 svg path.interactive:hover {
     fill: var(--accent-purple-light) !important;
+    position: relative;
+    z-index: 100;
 }
 
 svg path.paused {
     cursor: not-allowed !important;
     pointer-events: none !important;
     opacity: 0.5 !important;
+    fill: var(--shadow-color)!important;
 }
 
-svg path.answered,
-svg path.correct-answer,
-svg path.wrong-answer {
+svg path.answered {
     pointer-events: none !important;
     cursor: default !important;
+    stroke-width: 1.5;
 }
 
 svg path.correct-answer {
     fill: var(--accent-purple-dark) !important;
+    stroke: var(--accent-purple);
+    stroke-width: 1.5;
     animation: correctPulse 0.6s ease-in-out;
+    pointer-events: none !important;
 }
 
 @keyframes correctPulse {
@@ -337,12 +351,16 @@ svg path.correct-answer {
 
 svg path.wrong-answer {
     fill: var(--accent-pink) !important;
+    stroke: var(--accent-pink-secondary);
+    stroke-width: 1.5;
     animation: shake 0.5s ease-in-out;
+    pointer-events: none !important;
 }
 
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-2px); }
+    50% { transform: translateX(2px); }
     75% { transform: translateX(2px); }
 }
 
