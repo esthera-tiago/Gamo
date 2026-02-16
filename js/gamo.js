@@ -179,11 +179,22 @@ function updatePauseButton(){
 function updateGameStateOnPause(){
     const svgPaths = document.querySelectorAll('svg path')
     const restartButton = document.getElementById('restart-btn')
+    const pauseButton = document.getElementById('pause')
     if(isTimerPaused){
         svgPaths.forEach(path => {
             path.classList.add('paused')
-            path.style.opacity = "0.7"
+            path.style.opacity = "0.5"
+            
         })
+
+        if (pauseButton) {
+            pauseButton.style.opacity = "1"
+            const pausePaths = pauseButton.querySelectorAll('svg path')
+            pausePaths.forEach(p => {
+                p.style.opacity = "1"
+                p.classList.remove('paused')
+            })
+        }
         restartButton.disabled = true
         restartButton.style.opacity = "0.5"
         restartButton.style.cursor = "default"
@@ -193,6 +204,15 @@ function updateGameStateOnPause(){
             path.classList.remove('paused')
             path.style.opacity = "1"
         })
+
+        if (pauseButton) {
+            const pausePaths = pauseButton.querySelectorAll('svg path')
+            pausePaths.forEach(p => {
+                p.style.opacity = "1"
+                p.classList.remove('paused')
+            })
+            pauseButton.style.opacity = "1"
+        }
         restartButton.disabled = false
         restartButton.style.opacity = "1"
         restartButton.style.cursor = "pointer"
@@ -210,7 +230,7 @@ function showPauseMessage(){
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: var(--accent-purple);
             color: white;
             padding: 1.5rem 2rem;
@@ -275,12 +295,12 @@ function showFinalStats(){
     
     const statsHTML = `
         <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 10px;">
-            <h3>🎮 Game Statistics</h3>
-            <p>⏱️ Total Time: ${formatTime(totalElapsedTime)}</p>
-            <p>📊 Score: ${score}/${countries.length}</p>
-            <p>🎯 Accuracy: ${accuracy}%</p>
-            <p>⏱️ Average per country: ${formatTime(averageTime)}</p>
-            <p>🏆 Best lap: ${formatTime(laps.length > 0 ? Math.min(...laps.map(l => l.duration)) : 0)}</p>
+            <h3>Game Statistics</h3>
+            <p>Total Time: ${formatTime(totalElapsedTime)}</p>
+            <p>Score: ${score}/${countries.length}</p>
+            <p>Accuracy: ${accuracy}%</p>
+            <p>Average per country: ${formatTime(averageTime)}</p>
+            <p>Best lap: ${formatTime(laps.length > 0 ? Math.min(...laps.map(l => l.duration)) : 0)}</p>
         </div>
     `;
     
