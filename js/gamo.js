@@ -162,28 +162,40 @@ function updatePauseButton(){
     const svg = pauseButton.querySelector('svg')
     if(!svg) return
 
+    const statItem = pauseButton.closest('.stat-item')
+    const statLabel = statItem ? statItem.querySelector('.stat-label') : null
+
     if(isTimerPaused){
         svg.innerHTML = '<path d="M240-240v-480h80v480h-80Zm160 0 400-240-400-240v480Zm80-141v-198l165 99-165 99Zm0-99Z"/>';
         pauseButton.title = "Resume Timer"
+        if (statLabel) statLabel.innerText = 'Play'
     }else{
         svg.innerHTML = '<path d="M520-200v-560h240v560H520Zm-320 0v-560h240v560H200Zm400-80h80v-400h-80v400Zm-320 0h80v-400h-80v400Zm0-400v400-400Zm320 0v400-400Z"/>';
         pauseButton.title = "Pause Timer"
+        if (statLabel) statLabel.innerText = 'Pause'
     }
 }
 
 function updateGameStateOnPause(){
     const svgPaths = document.querySelectorAll('svg path')
+    const restartButton = document.getElementById('restart-btn')
     if(isTimerPaused){
         svgPaths.forEach(path => {
             path.classList.add('paused')
             path.style.opacity = "0.7"
         })
+        restartButton.disabled = true
+        restartButton.style.opacity = "0.5"
+        restartButton.style.cursor = "default"
         showPauseMessage()
     }else{
         svgPaths.forEach(path =>{
             path.classList.remove('paused')
             path.style.opacity = "1"
         })
+        restartButton.disabled = false
+        restartButton.style.opacity = "1"
+        restartButton.style.cursor = "pointer"
         hidePauseMessage()
     }
 }
@@ -198,11 +210,13 @@ function showPauseMessage(){
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--accent-purple);
             color: white;
-            padding: 20px 40px;
+            padding: 1.5rem 2rem;
             border-radius: 10px;
-            font-size: 24px;
+            font-size: 1.2rem;
+            text-decoration: none;
             z-index: 100;
             text-align: center;
         `;
