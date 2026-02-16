@@ -375,20 +375,32 @@ svg path.wrong-answer {
     font-size: 1.3rem;
 }
 
+#timer {
+    position: relative;
+}
+
 #laps-time {
     position: absolute;
-    background: var(--var1);
-    border: 1px solid var(--var3);
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
     border-radius: 5px;
     padding: 10px;
     margin-top: 5px;
+    min-width: 160px;
+    max-width: 320px;
     max-height: 200px;
     overflow-y: auto;
     display: none;
-    z-index: 1000;
+    z-index: 5000;
+    pointer-events: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
-#timer:hover #laps-time {
+#timer:hover #laps-time,
+#timer:focus-within #laps-time {
     display: block;
 }
 

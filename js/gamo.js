@@ -252,6 +252,160 @@ function hidePauseMessage(){
         pauseMessage.style.display = "none"
     }
 }
+
+function showFinalStats(){
+    let totalLapTime = 0;
+    let correctCount = 0;
+    laps.forEach(l => {
+        totalLapTime += l.duration;
+        if (l.correct) correctCount++;
+    });
+
+    const averageTime = laps.length > 0 ? totalLapTime / laps.length : 0;
+    const accuracy = laps.length > 0 ? (correctCount / laps.length * 100).toFixed(1) : 0;
+    const bestLap = laps.length > 0 ? Math.min(...laps.map(l => l.duration)) : 0;
+
+    const statsOverlay = document.createElement('div')
+    statsOverlay.id = 'stats-overlay'
+    statsOverlay.style.cssText = `
+        position:fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(130deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
+        backdrop-filter: blur(5px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+    `;
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        background:var(--glass-bg);
+        backdrop-filter:blur(20px);
+        border:2px solid var(--glass-border);
+        border-radius:20px;
+        padding:2.5rem;
+        max-width:500px;
+        width:90%;
+        box-shadow:0 20px 60px var(--shadow-color);
+        animation:slideUp 0.4s ease-out;
+    `;
+    const title = document.createElement('h2');
+    title.textContent = 'Game Complete!';
+    title.style.cssText = `
+        font-size:2rem;
+        font-weight:700;
+        padding-bottom:0.5rem;
+        background:linear-gradient(135deg,var(--accent-purple),var(--accent-purple-light));
+        -webkit-background-clip:text;
+        -webkit-text-fill-color:transparent;margin-bottom:1.5rem;
+        text-align:center;
+    `;
+    const statsContainer = document.createElement('div');
+    statsContainer.style.cssText = `
+        display:flex;
+        flex-direction:column;
+        gap:1rem;
+        margin-bottom:2rem;
+    `;
+    [
+        { icon: '', label: 'Total Time:   ', value: formatTime(totalElapsedTime) },
+        { icon: '', label: 'Score:    ', value: `${score}/${countries.length}` },
+        { icon: '', label: 'Accuracy:   ', value: `${accuracy}%` },
+        { icon: '', label: 'Average Time:   ', value: formatTime(averageTime) },
+        { icon: '', label: 'Best Lap:   ', value: formatTime(bestLap) }
+    ].forEach(stat => {
+        const statItem = document.createElement('div');
+        statItem.style.cssText = `
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:0.8rem 1.2rem;
+            background:rgba(139,92,246,0.15);
+            border:1px solid rgba(139,92,246,0.3);
+            border-radius:10px;
+            transition:all 0.3s;
+            width:80%;
+        `;
+        const label = document.createElement('span');
+        label.textContent = `${stat.icon} ${stat.label}`;
+        label.style.cssText = `
+            color:var(--text-secondary);
+            font-size:1rem;
+        `;
+        const value = document.createElement('span');
+        value.textContent = stat.value;
+        value.style.cssText = `
+            color:var(--accent-purple-light);
+            font-size:1.2rem;
+            font-weight:600;
+        `;
+        statItem.appendChild(label);
+        statItem.appendChild(value);
+        statsContainer.appendChild(statItem);
+        statItem.addEventListener('mouseenter', () => {
+            statItem.style.background = 'rgba(139,92,246,0.25)';
+            statItem.style.transform = 'translateX(5px)';
+        });
+        statItem.addEventListener('mouseleave', () => {
+            statItem.style.background = 'rgba(139,92,246,0.15)';
+            statItem.style.transform = 'translateX(0)';
+        });
+    });
+
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.style.cssText = `display:flex;gap:1rem;justify-content:center;`;
+    
+    const playAgainBtn = document.createElement('button');
+    playAgainBtn.textContent = 'Play Again';
+    playAgainBtn.style.cssText = `
+        padding:1rem 2rem;
+        font-size:1.1rem;
+        font-weight:600;
+        color:#fff;
+        background:linear-gradient(135deg,var(--accent-purple),var(--accent-purple-light));
+        border:none;
+        border-radius:50px;
+        cursor:pointer;
+        transition:all 0.3s;
+        box-shadow:0 10px 30px var(--shadow-color);
+    `;
+    playAgainBtn.addEventListener('click', () => { closeStatsModal(); startGame(); });
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = '✕ Close';
+    closeBtn.style.cssText = `
+        padding:1rem 2rem;
+        font-size:1.1rem;
+        font-weight:600;
+        color:var(--text-primary);
+        background:var(--glass-bg);
+        border:2px solid var(--glass-border);
+        border-radius:50px;
+        cursor:pointer;
+        transition:all 0.3s;`;
+    closeBtn.addEventListener('click', closeStatsModal);
+    
+    buttonsContainer.appendChild(playAgainBtn);
+    buttonsContainer.appendChild(closeBtn);
+    modal.appendChild(title);
+    modal.appendChild(statsContainer);
+    modal.appendChild(buttonsContainer);
+    statsOverlay.appendChild(modal);
+    document.body.appendChild(statsOverlay);
+    statsOverlay.addEventListener('click', (e) => { if (e.target === statsOverlay) closeStatsModal(); });
+}
+
+function closeStatsModal() {
+    const statsOverlay = document.getElementById('stats-overlay');
+    if (statsOverlay) {
+        statsOverlay.style.animation = 'fadeOut 0.3s ease-out';
+        setTimeout(() => statsOverlay.remove(), 300);
+    }
+}
+
 //Map's game functions
 function shuffleArray(array){
     const clone = [...array]
@@ -279,34 +433,6 @@ function nextTarget() {
         targetName.innerText = displayName
     } else {
         console.error("targetName element not found!")
-    }
-}
-
-function showFinalStats(){
-    let totalLapTime = 0;
-    let correctCount = 0;
-    laps.forEach(l => {
-        totalLapTime += l.duration;
-        if (l.correct) correctCount++;
-    });
-
-    const averageTime = laps.length > 0 ? totalLapTime / laps.length : 0;
-    const accuracy = laps.length > 0 ? (correctCount / laps.length * 100).toFixed(1) : 0;
-    
-    const statsHTML = `
-        <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 10px;">
-            <h3>Game Statistics</h3>
-            <p>Total Time: ${formatTime(totalElapsedTime)}</p>
-            <p>Score: ${score}/${countries.length}</p>
-            <p>Accuracy: ${accuracy}%</p>
-            <p>Average per country: ${formatTime(averageTime)}</p>
-            <p>Best lap: ${formatTime(laps.length > 0 ? Math.min(...laps.map(l => l.duration)) : 0)}</p>
-        </div>
-    `;
-    
-    const timerContainer = document.getElementById('timer-container') || document.getElementById('timer') || document.getElementById('score-container');
-    if (timerContainer) {
-        timerContainer.insertAdjacentHTML('beforeend', statsHTML);
     }
 }
 
