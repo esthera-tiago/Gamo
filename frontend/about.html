@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Gamo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">Gamo</a>
+      <div class="nav-links" id="nav-auth">
+        <a href="/levels.html" class="nav-link">Play</a>
+        <a href="/about.html" class="nav-link">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="about-page">
+    <section class="about-section">
+      <h1>What is Gamo?</h1>
+      <p>Gamo is an interactive geography game that challenges you to identify African countries on a map. Explore the continent region by region, from the Mediterranean coast to the southern tip. Each level focuses on a different region, teaching you the shape, location, and name of every African country.</p>
+    </section>
+
+    <section class="about-section">
+      <h2>How to Play</h2>
+      <ol class="steps-list">
+        <li><strong>Choose a level</strong> — Start with North Africa and work your way through all six regions.</li>
+        <li><strong>Read the prompt</strong> — A country name appears on screen. Your job is to find it on the map.</li>
+        <li><strong>Click the map</strong> — Click the correct country. A green highlight means you got it right. Red means try again.</li>
+        <li><strong>Complete the level</strong> — Find every country in the region to finish and earn stars.</li>
+        <li><strong>Unlock the next region</strong> — Each completed level unlocks the next challenge.</li>
+      </ol>
+    </section>
+
+    <section class="about-section">
+      <h2>Scoring System</h2>
+      <div class="scoring-table">
+        <div class="scoring-row">
+          <span>Correct answer</span><span>10 points</span>
+        </div>
+        <div class="scoring-row">
+          <span>First-try bonus</span><span>+5 points</span>
+        </div>
+        <div class="scoring-row">
+          <span>Wrong click</span><span>-2 points</span>
+        </div>
+        <div class="scoring-row">
+          <span>Complete in under 2 min</span><span>+50 bonus</span>
+        </div>
+        <div class="scoring-row">
+          <span>Complete in under 4 min</span><span>+25 bonus</span>
+        </div>
+        <div class="scoring-row scoring-note">
+          <span>Minimum per country: 1 point</span><span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>Levels Overview</h2>
+      <div class="levels-table">
+        <div class="levels-table-row header">
+          <span>Level</span><span>Region</span><span>Countries</span>
+        </div>
+        <div class="levels-table-row"><span>1</span><span>North Africa</span><span>7</span></div>
+        <div class="levels-table-row"><span>2</span><span>West Africa</span><span>16</span></div>
+        <div class="levels-table-row"><span>3</span><span>Central Africa</span><span>9</span></div>
+        <div class="levels-table-row"><span>4</span><span>East Africa</span><span>17</span></div>
+        <div class="levels-table-row"><span>5</span><span>Southern Africa</span><span>5</span></div>
+        <div class="levels-table-row"><span>6</span><span>All Africa</span><span>54</span></div>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>Tips and Tricks</h2>
+      <ul class="tips-list">
+        <li>Start from coastal countries — they are often easier to spot.</li>
+        <li>Use neighboring countries as landmarks to narrow down your search.</li>
+        <li>Pay attention to relative size and shape of each country.</li>
+        <li>Play with sound off or on — the game works either way.</li>
+        <li>Replay levels to improve your score and earn all three stars.</li>
+      </ul>
+    </section>
+
+    <section class="about-section credits">
+      <h2>Credits</h2>
+      <p>SVG map data by <a href="https://simplemaps.com" target="_blank" rel="noopener">SimpleMaps</a> under the MIT License. Built with vanilla JavaScript and Vite.</p>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play — Gamo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/main-B30dtPCF.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-B3VU8fSj.css">
+  <link rel="stylesheet" crossorigin href="/assets/game-DRBOyQj0.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">Gamo</a>
+      <div class="nav-links">
+        <a href="/levels.html" class="nav-link">Back to Levels</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="game-layout">
+    <aside class="game-sidebar">
+      <div class="sidebar-section">
+        <h2 id="level-name" class="sidebar-level-name"></h2>
+        <div class="progress-container">
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progress-bar"></div>
+          </div>
+          <span id="progress-text" class="progress-text">0 / 0</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section prompt-section">
+        <p class="prompt-label">Find:</p>
+        <p id="current-prompt" class="current-prompt">—</p>
+      </div>
+
+      <div class="sidebar-section stats-section">
+        <div class="stat-item">
+          <span class="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </span>
+          <span id="score-display" class="stat-number">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </span>
+          <span id="timer" class="stat-number">00:00</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <h3 class="found-title">Found Countries</h3>
+        <ul id="found-list" class="found-list"></ul>
+      </div>
+
+      <div class="sidebar-section">
+        <button id="pause-btn" class="btn btn-outline btn-full">Pause</button>
+      </div>
+    </aside>
+
+    <section class="game-map-area">
+      <div id="africa-map" class="map-container"></div>
+    </section>
+  </main>
+
+  <div id="pause-overlay" class="pause-overlay" style="display:none">
+    <div class="pause-message">
+      <h2>Game Paused</h2>
+      <button id="resume-btn" class="btn btn-primary">Resume</button>
+    </div>
+  </div>
+</body>
+</html>
