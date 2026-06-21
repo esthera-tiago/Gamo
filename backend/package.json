@@ -6,6 +6,9 @@
     "dev": "node --watch src/index.js",
     "start": "node src/index.js"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
     "cors": "^2.8.5",
